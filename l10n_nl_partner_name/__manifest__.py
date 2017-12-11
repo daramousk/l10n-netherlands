@@ -8,6 +8,7 @@
     'category': 'Contact management',
     'depends': [
         'partner_firstname',
+        'base_view_inheritance_extension',
     ],
     'data': [
         'view/res_partner.xml',
