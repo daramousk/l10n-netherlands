@@ -12,6 +12,7 @@
     ],
     'data': [
         'view/res_partner.xml',
+        "data/ir.config_parameter.xml",
     ],
     'auto_install': False,
     'installable': True,
