@@ -22,12 +22,24 @@
 ##############################################################################
 
 from lxml import etree
-from odoo import models, api, exceptions, _
+from odoo import fields, models, api, exceptions, _
+from odoo.exceptions import ValidationError
 from odoo.tools import ormcache
 
 
 class ResPartner(models.Model):
     _inherit = 'res.partner'
+
+    quickentry_zip = fields.Char(related='zip', store=False)
+    quickentry_street_number = fields.Char(
+        related='street_number',
+        store=False,
+    )
+
+    @api.onchange('quickentry_zip', 'quickentry_street_number')
+    def onchange_quickentry(self):
+        self.zip = self.quickentry_zip
+        self.street_number = self.quickentry_street_number
 
     @api.model
     @ormcache(skiparg=2)
@@ -76,7 +88,12 @@ class ResPartner(models.Model):
             return {}
         pc_info = provider_obj.getaddress(postal_code, self.street_number)
         if not pc_info or not pc_info._data:
-            return {}
+            # the library only prints and does not re raise the exception
+            # therefore if these items are empty we have an error
+            # and since we check the connection above and we know that we want
+            # a zip in the Netherlands, that means the only error we can have
+            # is a bad zip.
+            raise ValidationError(_("Incorrect ZIP."))
         self.street_name = pc_info.street
         self.city = pc_info.town
         self.state_id = self.get_province(pc_info.province)

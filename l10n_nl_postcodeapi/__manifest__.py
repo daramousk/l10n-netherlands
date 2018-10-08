@@ -31,6 +31,7 @@
     'depends': ['partner_street_number'],
     'data': [
         'data/ir_config_parameter.xml',
+        'views/res_partner.xml',
         ],
     'external_dependencies': {
         'python': ['pyPostcode'],

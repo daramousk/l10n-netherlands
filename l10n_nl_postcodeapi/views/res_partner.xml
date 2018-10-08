@@ -1,0 +1,21 @@
+<odoo>
+
+    <record id="view_partner_form" model="ir.ui.view">
+        <field name="name">QuickAdd zip, house no</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='street']" position="before">
+                <field
+                    name="quickentry_zip"
+                    class="o_address_street_name"
+                    placeholder="Quick Zip" />
+                <field
+                    name="quickentry_street_number"
+                    class="o_address_street_number"
+                    placeholder="Quick House Number" />
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
