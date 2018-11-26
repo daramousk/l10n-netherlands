@@ -140,7 +140,8 @@ class XafAuditfileExport(models.Model):
         specification = {
             'company_id': self.company_id.id,
             'date_start': self.period_start.date_start,
-            'date_stop': self.period_end.date_stop}
+            'date_stop': self.period_end.date_stop,
+            'exclude_account_ids': tuple(self.exclude_account_ids.ids)}
         # Determine path for auditfile
         auditfile_name = '%s.xaf' % self.name.replace(' ', '_')
         auditfile_path = get_auditfile_path(auditfile_name)

@@ -114,6 +114,7 @@ SQL_ACCOUNTS = \
  LEFT OUTER JOIN res_users c ON a.create_uid = c.id
  WHERE a.company_id = %(company_id)s
    AND a.type <> 'view'
+   AND a.id NOT IN %(exclude_account_ids)s
  ORDER BY a.code"""
 
 SQL_VATCODES = \
@@ -189,6 +190,7 @@ SQL_TRANSACTIONS = \
  WHERE m.state = 'posted'
    AND l.state = 'valid'
    AND (l.debit <> 0.0 OR l.credit <> 0.0)
+   AND a.id NOT IN %(exclude_account_ids)s
  ORDER BY j.code, m.date, m.id, a.code"""
 
 

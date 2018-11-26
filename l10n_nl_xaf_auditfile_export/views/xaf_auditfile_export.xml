@@ -46,6 +46,9 @@
                             <field
                                 name="data_export"
                                 attrs="{'readonly': [('auditfile_url', '!=', False)]}" />
+                            <field
+                                name="exclude_account_ids"
+                                attrs="{'readonly': [('auditfile_url', '!=', False)]}"/>
                         </group>
                         <group
                             name="output_data"
