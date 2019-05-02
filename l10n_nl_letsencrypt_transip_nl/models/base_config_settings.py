@@ -12,7 +12,6 @@ class BaseConfigSettings(models.TransientModel):
     )
     letsencrypt_transip_login = fields.Char()
     letsencrypt_transip_key = fields.Text()
-    letsencrypt_transip_url = fields.Char()
 
     @api.model
     def default_get(self, field_list):
@@ -23,8 +22,6 @@ class BaseConfigSettings(models.TransientModel):
                 'letsencrypt_transip_login'),
             'letsencrypt_transip_key': ir_config_parameter.get_param(
                 'letsencrypt_transip_key'),
-            'letsencrypt_transip_url': ir_config_parameter.get_param(
-                'letsencrypt_transip_url'),
         })
         return res
 
@@ -39,9 +36,5 @@ class BaseConfigSettings(models.TransientModel):
         ir_config_parameter.set_param(
             'letsencrypt_transip_key',
             self.letsencrypt_transip_key,
-        )
-        ir_config_parameter.set_param(
-            'letsencrypt_transip_url',
-            self.letsencrypt_transip_url,
         )
         return True

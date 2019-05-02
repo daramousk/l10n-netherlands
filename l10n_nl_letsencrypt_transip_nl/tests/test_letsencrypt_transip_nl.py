@@ -19,7 +19,6 @@ class TestLetsencryptTransip(TransactionCase):
             'altnames': '*.example.com',
             'letsencrypt_transip_login': 'simulacra',
             'letsencrypt_transip_key': self.key,
-            'letsencrypt_transip_url': 'api.transip.nl',
         })
         self.settings.set_default()
         self.settings.set_dns_provider()
@@ -34,18 +33,9 @@ class TestLetsencryptTransip(TransactionCase):
             vals['letsencrypt_transip_key'],
             self.key,
         )
-        self.assertEquals(
-            vals['letsencrypt_transip_url'],
-            'api.transip.nl',
-        )
 
-    @patch(
-        'odoo.addons.letsencrypt.models.letsencrypt.client'
-    )
-    @patch(
-        'odoo.addons.l10n_nl_letsencrypt_transip_nl.models.letsencrypt.'
-        'DomainService',
-    )
+    @patch('odoo.addons.letsencrypt.models.letsencrypt.client')
+    @patch('transip.service.domain.DomainService')
     def test_invocation(self, domain_service, client):
         letsencrypt = self.env['letsencrypt']
         mockV2 = mock.Mock
