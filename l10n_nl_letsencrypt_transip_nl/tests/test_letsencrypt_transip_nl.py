@@ -35,8 +35,9 @@ class TestLetsencryptTransip(TransactionCase):
         )
 
     @patch('odoo.addons.letsencrypt.models.letsencrypt.client')
+    @patch('transip.service.objects.DnsEntry')
     @patch('transip.service.domain.DomainService')
-    def test_invocation(self, domain_service, client):
+    def test_invocation(self, domain_service, dns_entry, client):
         letsencrypt = self.env['letsencrypt']
         mockV2 = mock.Mock
         order_resource = mock.Mock
